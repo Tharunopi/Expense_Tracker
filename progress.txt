@@ -1,0 +1,3 @@
+done with directory structure setup
+
+start with database setup
