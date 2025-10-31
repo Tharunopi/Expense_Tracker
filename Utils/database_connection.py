@@ -15,9 +15,39 @@ class databaseConnection:
         except Exception as e:
             print(f"Error: databaseConnection() -> {e}")
 
-    def insert_new(self, data:userInfo|userLog):
+    def table_selector(self, data:userInfo|userLog) -> str|None:
         try:
-            self.__client
+            if isinstance(data, userInfo):
+                table = self.__info_table
+            else: 
+                table = self.__log_table
+            
+            return table
+
+        except Exception as e:
+            print(f"Error: databaseConnection.table_selector() -> {e}")
+            return None
+
+    def insert_record(self, data:userInfo|userLog):
+        try:
+            table = self.table_selector(data)
+            if table:
+                response = self.__client.table(table).insert(data).execute()
+                return response
+            return None
 
         except Exception as e:
             print(f"Error: databaseConnection.insert_new() -> {e}")
+
+    def upsert_record(self):
+        try:
+            pass
+
+        except Exception as e:
+            print(f"Error: databaseConnection.upsert_record() -> {e}")
+
+    def delete_record(self):
+        pass
+
+    def fetch_record(self):
+        pass
