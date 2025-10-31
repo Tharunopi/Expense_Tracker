@@ -1,6 +1,10 @@
-def main():
-    print("Hello from expense-tracker!")
+import streamlit as st
+from Helper.login import auth
+
+if not st.user.is_logged_in:
+    auth.login(st)
 
 
-if __name__ == "__main__":
-    main()
+
+if st.user.is_logged_in:
+    auth.logout(st)

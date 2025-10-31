@@ -39,15 +39,27 @@ class databaseConnection:
         except Exception as e:
             print(f"Error: databaseConnection.insert_new() -> {e}")
 
-    def upsert_record(self):
+    def upsert_record(self, data: userInfo|userLog):
         try:
-            pass
+            table = self.table_selector(data)
+            response = self.__client.table(table).upsert(data).execute()
+            return response
 
         except Exception as e:
             print(f"Error: databaseConnection.upsert_record() -> {e}")
 
     def delete_record(self):
-        pass
+        try:
+            pass
+        
+        except Exception as e:
+            print(f"Error: databaseConnection.delete_record() -> {e}")
 
-    def fetch_record(self):
-        pass
+    def fetch_record(self, table_name:str = "expense_tracker_user_logs", filter:str="*"):
+        try:
+            response = self.__client.table(table_name).select(filter).execute
+            return response
+        
+        except Exception as e:
+            print(f"Error: databaseConnection.fetch_record() -> {e}")
+            return None
